@@ -1,8 +1,10 @@
 package my.study.corespringsecurity.security.configs;
 
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -14,6 +16,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         String password = passwordEncoder().encode("aa");
+
 
         auth.inMemoryAuthentication().withUser("user").password(password).roles("USER");
         auth.inMemoryAuthentication().withUser("manager").password(password).roles("MANAGER", "USER");
@@ -37,5 +40,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
                 .formLogin();
+    }
+
+    @Override
+    public void configure(WebSecurity web) {
+        // js, css, image 파일 등 보안 필터를 적용할 필요가 없는 리소스 설정
+        web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 }

@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // h2-console 설정
         http
                 .authorizeRequests()
-                .antMatchers("/h2-console/*").permitAll()
+                .antMatchers("/h2-console/**").permitAll()
                 .and()
                 .headers().frameOptions().sameOrigin()
                 .and()

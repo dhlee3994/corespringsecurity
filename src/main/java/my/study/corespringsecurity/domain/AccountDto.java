@@ -13,5 +13,11 @@ public class AccountDto {
     private String email;
     private String age;
     private String role;
+
+    public AccountDto(String username, String password, String role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
 }
 

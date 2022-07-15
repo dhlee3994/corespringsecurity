@@ -19,13 +19,4 @@ public class CorespringsecurityApplication {
         SpringApplication.run(CorespringsecurityApplication.class, args);
     }
 
-    @Autowired
-    private AccountRepository accountRepository;
-
-    @EventListener(ApplicationReadyEvent.class)
-    public void createBasicAccounts() {
-        accountRepository.save(INSTANCE.toEntity(new AccountDto("user", "aa", "", "", "USER")));
-        accountRepository.save(INSTANCE.toEntity(new AccountDto("manager", "aa", "", "", "MANAGER")));
-        accountRepository.save(INSTANCE.toEntity(new AccountDto("admin", "aa", "", "", "ADMIN")));
-    }
-}
+ }

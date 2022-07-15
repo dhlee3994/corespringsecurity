@@ -31,4 +31,8 @@ public class Account {
         this.age = age;
         this.role = role;
     }
+
+    public void encodePassword(String encodedPassword) {
+        this.password = encodedPassword;
+    }
 }

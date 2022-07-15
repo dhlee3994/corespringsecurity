@@ -25,6 +25,7 @@ public class AccountController {
     @PostMapping("/users")
     public String createUser(AccountDto accountDto) {
         Account account = AccountMapper.INSTANCE.toEntity(accountDto);
+        account.encodePassword(passwordEncoder.encode(account.getPassword()));
         accountService.createUser(account);
 
         return "redirect:/";

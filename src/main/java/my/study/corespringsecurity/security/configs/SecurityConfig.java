@@ -58,7 +58,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
 
         http
-                .formLogin();
+                .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/login_proc")
+                .defaultSuccessUrl("/")
+                .permitAll();
     }
 
     @Override

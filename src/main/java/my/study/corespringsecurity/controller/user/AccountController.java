@@ -1,9 +1,7 @@
 package my.study.corespringsecurity.controller.user;
 
 import lombok.RequiredArgsConstructor;
-import my.study.corespringsecurity.domain.Account;
 import my.study.corespringsecurity.domain.AccountDto;
-import my.study.corespringsecurity.domain.mapper.AccountMapper;
 import my.study.corespringsecurity.service.AccountService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -15,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class AccountController {
 
     private final AccountService accountService;
-    private final PasswordEncoder passwordEncoder;
+
 
     @GetMapping("/users")
     public String createUser() {
@@ -24,9 +22,7 @@ public class AccountController {
 
     @PostMapping("/users")
     public String createUser(AccountDto accountDto) {
-        Account account = AccountMapper.INSTANCE.toEntity(accountDto);
-        account.encodePassword(passwordEncoder.encode(account.getPassword()));
-        accountService.createUser(account);
+        accountService.createUser(accountDto);
 
         return "redirect:/";
     }

@@ -1,12 +1,13 @@
 package my.study.corespringsecurity.security.service;
 
+import lombok.Getter;
 import my.study.corespringsecurity.domain.Account;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
-import java.util.List;
 
+@Getter
 public class AccountContext extends User {
 
     private final Account account;

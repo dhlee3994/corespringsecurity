@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -21,6 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
     private final AuthenticationDetailsSource authenticationDetailsSource;
+    private final AuthenticationSuccessHandler successHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
@@ -64,6 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .loginProcessingUrl("/login_proc")
                 .defaultSuccessUrl("/")
+                .successHandler(successHandler)
                 .authenticationDetailsSource(authenticationDetailsSource)
                 .permitAll();
     }

@@ -1,6 +1,7 @@
 package my.study.corespringsecurity.security.configs;
 
 import lombok.RequiredArgsConstructor;
+import my.study.corespringsecurity.security.filter.AjaxLoginProcessingFilter;
 import my.study.corespringsecurity.security.handler.CustomAccessDeniedHandler;
 import my.study.corespringsecurity.security.provider.CustomAuthenticationProvider;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -18,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @RequiredArgsConstructor
 @EnableWebSecurity
@@ -78,6 +80,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler());
+
+        http
+                .addFilterBefore(ajaxLoginProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
+    }
+
+    @Bean
+    public AjaxLoginProcessingFilter ajaxLoginProcessingFilter() throws Exception {
+        AjaxLoginProcessingFilter filter = new AjaxLoginProcessingFilter();
+        filter.setAuthenticationManager(authenticationManagerBean());
+        return filter;
     }
 
     @Bean
